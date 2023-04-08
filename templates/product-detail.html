@@ -1,0 +1,291 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="product-detail">
+  <div class="container-fluid">
+    <div class="container-detail-product">
+      <div class="detail-product">
+        <div class="box-overview">
+          <div class="box-img-product">
+            <div class="container-carousel">
+              <div class="carousel-img-product">
+                {% if product.avatar %}
+                <div class="slide">
+                  <a href="{{product.avatar.url}}" data-fancybox>
+                    <img src="{{product.avatar.url}}" alt="" />
+                  </a>
+                </div>
+                {% endif %} {% if images %} {% for item in images %}
+                <div class="slide">
+                  {% if item.image %}
+                  <a href="{{item.image.url}}" data-fancybox>
+                    <img src="{{item.image.url}}" alt="" />
+                  </a>
+                  {% endif %}
+                </div>
+                {% endfor %} {% endif %}
+              </div>
+              <div class="carousel-img-product-nav">
+                {% if product.avatar %}
+                <div class="slide">
+                  <img src="{{product.avatar.url}}" alt="" />
+                </div>
+                {% endif %} {% if images %} {% for item in images %}
+                {% if item.image %}
+                <div class="slide">
+                  <img src="{{item.image.url}}" alt="" />
+                </div>
+                {% endif %} {% endfor %} {% endif %}
+              </div>
+            </div>
+            <div class="clear-fl"></div>
+            <hr class="line" />
+          </div>
+          <div class="box-order">
+            <div class="heading-box">
+              <h3 class="title">{{product.name}}</h3>
+              <div href="" class="star-review">
+                {% with ''|center:product.vote as range %} {% for i in range%}
+                <span class="fa fa-star checked"></span>
+                {% endfor %} {% endwith %}
+              </div>
+              <p class="text">{{product.intro}}</p>
+            </div>
+            <hr class="line" />
+            <ul class="property-list">
+              <li class="property-item box-price">
+                <div class="price">
+                  <span class="sale-price">{{product.price}} VNĐ</span>
+                </div>
+              </li>
+
+              <li class="property-item">
+                <p class="title">Tình trạng:</p>
+                <div class="content">{{product.status}}</div>
+              </li>
+              <li class="property-item">
+                <p class="title">Bảo hành:</p>
+                <div class="content">{{product.warranty_time}}</div>
+              </li>
+              <li class="property-item">
+                <p class="title">Sản xuất tại:</p>
+                <div class="content">{{product.country}}</div>
+              </li>
+              <li class="property-item property-select">
+                <p class="title">Loại:</p>
+                <div class="content">
+                  <div class="select-item">Trắng đen - 36</div>
+                </div>
+              </li>
+              <li class="property-item">
+                <p class="title">Chọn số lượng:</p>
+                <div class="content">
+                  <form class="increases-form">
+                    <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">
+                      -
+                    </div>
+                    <input type="number" id="number" class="amount-item" value="0" />
+                    <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">
+                      +
+                    </div>
+                  </form>
+                </div>
+              </li>
+            </ul>
+            <div class="container-button">
+              <button id="{{product.id}}" url="{% url 'add-to-cart' %}" chuyenlink="{% url 'checkout' %}"
+                class="button btn-main-outline add-to-cart">
+                mua ngay
+              </button>
+              <button id="{{product.id}}" url="{% url 'add-to-cart' %}" class="button btn-main add-to-cart"> Thêm vào
+                giỏ </button>
+            </div>
+          </div>
+        </div>
+        <div class="box-detail">
+          <div class="container-content">
+            <h2 class="title">Chi tiết sản phẩm</h2>
+
+            <div class="content">
+              <p class="text">{{product.content}}</p>
+
+              <hr class="line" />
+            </div>
+            <div class="end-tb"></div>
+          </div>
+          <div class="infor">
+            <h2 class="title">Tại sao bạn nên lựa chọn Chúng tôi?</h2>
+            <p>Sản phẩm đồ da chúng tôi được làm từ da bò thật nguyên miếng, giữ nguyên được kết cấu của da nên có thể dùng được lâu dài, tuổi thọ trung bình đạt từ 3 đến 5 năm.</p>
+            <p>Với thiết kế độc đáo, lịch lãm và không kém phần hiện đại, các sản phẩm của chúng tôi phù hợp với nhiều đối tượng, tôn lên sự nam tính cho các quý ông hiện đại. Các sản phẩm đều được kiểm tra kỹ lưỡng trước khi mang bán ra thị trường, mang đến những sản phẩm với chất lượng tốt nhất tới quý khách hàng.</p>
+            <p>Ngoài ra, với hệ thống cửa hàng rộng khắp cả nước cùng đội ngũ nhân viên bán hàng chuyên nghiệp, chúng tôi hứa hẹn mang đến quý khách hàng dịch vụ khách hàng tốt nhất cùng chính sách bảo hành, bảo trì trọn đời cho các sản phẩm da từ chúng tôi như lời cam kết về uy tín và chất lượng của chúng tôi đến với khách hàng.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box-review">
+    <div class="container">
+      <h2 class="title-reivew">Review</h2>
+    </div>
+    <div class="tb-product-review">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-left">
+            <h4 class="total-rating">5/5</h4>
+            <div class="star-review">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+            </div>
+            <span>(950 lượt đánh giá)</span>
+          </div>
+          <div class="col-md-4">
+            <div href="" class="star-container">
+              <div class="bar-item">
+                <span class="fa fa-star">5</span>
+                <span class="rate-bar">
+                  <span class="rate-content" style="width: 70%"></span>
+                </span>
+                (150)
+              </div>
+              <div class="bar-item">
+                <span class="fa fa-star">4</span>
+                <span class="rate-bar">
+                  <span class="rate-content" style="width: 0%"></span>
+                </span>
+                (150)
+              </div>
+              <div class="bar-item">
+                <span class="fa fa-star">3</span>
+                <span class="rate-bar">
+                  <span class="rate-content" style="width: 20%"></span>
+                </span>
+                (150)
+              </div>
+              <div class="bar-item">
+                <span class="fa fa-star">2</span>
+                <span class="rate-bar">
+                  <span class="rate-content" style="width: 10%"></span>
+                </span>
+                (150)
+              </div>
+              <div class="bar-item">
+                <span class="fa fa-star">1</span>
+                <span class="rate-bar">
+                  <span class="rate-content" style="width: 0%"></span>
+                </span>
+                (150)
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h4 class="title">Đánh giá ngay :</h4>
+            <button id="show-comment" class="button btn-main">
+              Viết bình luận
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment-box container">
+      <div class="write-comment">
+        <div class="form-group">
+          <label for="">Đánh giá</label>
+          <div id="full-stars-example-two">
+            <div class="rating-group">
+              <input disabled checked class="rating__input rating__input--none" name="rating3" id="rating3-none"
+                value="0" type="radio" />
+              <label aria-label="1 star" class="rating__label" for="rating3-1"><i
+                  class="rating__icon rating__icon--star fa fa-star"></i></label>
+              <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio" />
+              <label aria-label="2 stars" class="rating__label" for="rating3-2"><i
+                  class="rating__icon rating__icon--star fa fa-star"></i></label>
+              <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio" />
+              <label aria-label="3 stars" class="rating__label" for="rating3-3"><i
+                  class="rating__icon rating__icon--star fa fa-star"></i></label>
+              <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio" />
+              <label aria-label="4 stars" class="rating__label" for="rating3-4"><i
+                  class="rating__icon rating__icon--star fa fa-star"></i></label>
+              <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio" />
+              <label aria-label="5 stars" class="rating__label" for="rating3-5"><i
+                  class="rating__icon rating__icon--star fa fa-star"></i></label>
+              <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio" />
+            </div>
+          </div>
+          <label for="">Tên</label>
+          <input type="text" class="form-control" name="" id="input_name" aria-describedby="helpId" placeholder="" />
+          <label for="">Tiêu đề</label>
+          <input type="text" class="form-control" name="" id="input_title" aria-describedby="helpId" placeholder="" />
+          <label for="">Nội dung</label>
+          <textarea class="form-control" name="" id="input_content" rows="3"></textarea>
+          <div class="container-btn mt-2">
+            <button type="submit" class="button btn-main add-comment" product_id="{{product.id}}"
+              url="{% url 'comment-product' %}">Gửi</button>
+            <button type="button" id="close" class="button btn-main-outline">
+              hủy
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="comment-list">
+        {% if comments %} {% for item in comments %}
+        <div class="comment-item row">
+          <div class="user col-md-3">
+            <h4 class="name">{{item.name}}</h4>
+          </div>
+          <div class="comment col-md-9">
+            <div class="star-review">
+              {% with ''|center:item.vote as range %} {% for i in range%}
+              <span class="fa fa-star checked"></span>
+              {% endfor %} {% endwith %}
+            </div>
+            <h4 class="title">{{item.title}}</h4>
+            <p class="text">
+              {{item.content}}
+            </p>
+            <span class="count-like"> {{item.date|date:"d-m-Y"}} </span>
+
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <div class="carousel-list-product">
+    <div class="container">
+      <h3 class="title-section">Sản phẩm liên quan</h3>
+      <div class="carousel-product-hot">
+        {% if related_products %} {% for item in related_products %}
+        <div class="slide">
+          <div class="product-item">
+            <a href="{% url 'product-detail' item.id%}" class="card">
+              <div class="img">
+                <img class="card-img-top" src="{{item.avatar.url}}" alt="" />
+              </div>
+              <div class="card-body">
+                <h4 class="card-title">{{item.name}}</h4>
+                <p class="card-text">Giá : {{item.price}} đ</p>
+                <div href="" class="star-review">
+                  {% with ''|center:item.vote as range %} {% for i in range%}
+                  <span class="fa fa-star checked"></span>
+                  {% endfor %} {% endwith %}
+                </div>
+              </div>
+              <div class="text-center mb-2">
+                <button id="{{item.id}}" url="{% url 'add-to-cart' %}" class="button btn-main add-to-cart">
+                  Thêm vào giỏ hàng
+                </button>
+              </div>
+            </a>
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
